@@ -7,6 +7,7 @@ class App extends React.Component
     this.state={
       taille:'',
       poid:'',
+      indice:'',
       
     }
   }
@@ -20,7 +21,18 @@ calcule=event=>{
   if(this.state.poid !==''&&this.state.taille!=='')
   {
     let indice=Math.round(poid/Math.pow(taille,2));
-    alert("votre IMC est "+indice+" votre état est: "+this.detection(indice));
+    alert("votre état est: "+this.detection(indice));
+    var index='';
+    if(indice<35)
+    {
+     index=<span className="alert alert-info">votre IMC est: {indice}</span>
+    }
+    else
+    {
+      index=<span className="alert alert-danger">votre IMC est: {indice}</span>
+     }
+
+    this.setState({indice:index})
   }
   else
   {
@@ -58,6 +70,7 @@ detection(imc)
 </div>
         <div className="mb-3">
   <button className="btn btn-primary" type="submit">Calculer IMC</button>
+  <br></br><br></br><br></br> {this.state.indice}
 </div>
 
 
