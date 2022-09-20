@@ -1,25 +1,75 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React from 'react';
+class App extends React.Component
+{
+  constructor()
+  {
+    super();
+    this.state={
+      taille:'',
+      poid:'',
+      
+    }
+  }
+  onChange= e=>{
+    this.setState({[e.target.name]:e.target.value});
+  };
+calcule=event=>{
+  event.preventDefault();
+  let poid=this.state.poid;
+  let taille=this.state.taille;
+  if(this.state.poid !==''&&this.state.taille!=='')
+  {
+    let indice=Math.round(poid/Math.pow(taille,2));
+    alert("votre IMC est "+indice+" votre état est: "+this.detection(indice));
+  }
+  else
+  {
+    alert("veuillez remplir tout les champs!")
+  }
 }
+detection(imc)
+{
+  if(imc<20)
+  return "maigre";
+  else if(imc<=25)
+  return 'idéale';
+  else
+  return "surpoid";
 
+}
+  render()
+  {return(<>
+  
+  <div className="container text-center">
+  <div className="row">
+    <div className="col">
+      
+    </div>
+    <div className="col">
+      <form onSubmit={this.calcule}>
+        <h1 className='text-center'>Calcule IMC</h1>
+        <div className="mb-3">
+  <label  className="form-label">Taille</label>
+  <input value={this.state.taille} name="taille" onChange={this.onChange} placeholder='taille' type="number" className="form-control" ></input>
+</div>
+        <div className="mb-3">
+  <label  className="form-label">Poid</label>
+  <input value={this.state.poid} name="poid" onChange={this.onChange} placeholder='poid' type="number" className="form-control" ></input>
+</div>
+        <div className="mb-3">
+  <button className="btn btn-primary" type="submit">Calculer IMC</button>
+</div>
+
+
+      </form>
+    </div>
+    <div className="col">
+      
+    </div>
+  </div>
+</div>
+  
+  
+  </>)}
+}
 export default App;
